@@ -1,102 +1,108 @@
 @import '../../style/default.less';
-@import './menu.less';
-@import './dark.less';
-@import './collapsed.less';
-@import './dropdown.less';
+@import './mode.less';
+@import './overlay.less';
 
 @menu-prefix: ~'@{idux-prefix}-menu';
 
 .@{menu-prefix} {
-  &-vertical,
-  &-inline {
-    padding: 0.02px 0;
-    border-right: @menu-border-width @menu-border-style @menu-border-color;
+  color: @menu-text-color;
+  background-color: @menu-bg-color;
+  transition: background-color @transition-duration-slow, width @transition-duration-slow;
+  display: flex;
 
-    .@{menu-prefix}-item,
-    .@{menu-prefix}-sub-title {
-      margin: @menu-item-margin;
+  .@{menu-prefix}-group {
+    .@{menu-prefix}-group-title {
+      display: flex;
+      align-items: center;
+      height: @menu-item-height;
+      padding-left: @menu-item-padding-left;
+      padding-right: @menu-item-padding-right;
+      color: @menu-item-group-text-color;
+      font-size: @menu-font-size;
+      .ellipsis();
+
+      .@{menu-prefix}icon {
+        margin-right: @menu-item-icon-margin-right;
+      }
     }
 
+    .@{menu-prefix}-sub-title,
     .@{menu-prefix}-item {
-      &::after {
-        position: absolute;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        border-right: @menu-item-border-right-width @menu-border-style @menu-highlight-color;
-        content: '';
-        transform: scaleY(0);
-        opacity: 0;
-        transition: transform @transition-duration-base @ease-out, opacity @transition-duration-base @ease-out;
-      }
-      &-selected {
-        &::after {
-          transform: scaleY(1);
-          opacity: 1;
-        }
-      }
-    }
-
-    .@{menu-prefix}-divider {
-      width: 100%;
-      border-top: @menu-border-width @menu-border-style @menu-border-color;
+      padding-left: @menu-item-padding-left * 2;
     }
   }
 
-  &-vertical,
-  &-horizontal {
-    .@{menu-prefix}-sub-opened {
+  .@{menu-prefix}-sub-title,
+  .@{menu-prefix}-item {
+    position: relative;
+    height: @menu-item-height;
+    padding-left: @menu-item-padding-left;
+    padding-right: @menu-item-padding-right;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    transition: background @transition-duration-slow;
+    .ellipsis();
+
+    a {
+      color: @menu-text-color;
+      text-decoration: none;
+    }
+
+    &:hover {
       color: @menu-highlight-color;
-      .@{menu-prefix}-sub-title a {
+
+      a {
         color: @menu-highlight-color;
       }
     }
-  }
 
-  &-horizontal {
-    line-height: @menu-item-height;
-    border-bottom: @menu-border-width @menu-border-style @menu-border-color;
-
-    .@{menu-prefix}-item,
-    .@{menu-prefix}-sub {
-      display: inline-block;
-      vertical-align: bottom;
-      margin: 0 @menu-item-padding-left;
-      border-bottom: @menu-item-border-bottom-width @menu-border-style transparent;
-      transition: border @transition-duration-base @ease-out;
-
-      &:hover,
-      &-opened,
-      &-selected {
-        border-color: @menu-highlight-color;
-      }
-
-      &-disabled {
-        border-color: transparent !important;
-      }
+    a::after {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      background-color: transparent;
+      content: '';
     }
 
-    .@{menu-prefix}-item,
-    .@{menu-prefix}-sub-title {
-      padding: @menu-item-horizontal-padding;
+    &:hover,
+    &:active {
+      background-color: @menu-highlight-bg-color;
     }
 
-    .@{menu-prefix}-sub-title-suffix-icon {
-      display: none;
+    &.@{menu-prefix}-selected {
+      color: @menu-highlight-color;
     }
 
-    .@{menu-prefix}-divider {
-      display: inline-block;
-      vertical-align: bottom;
-      height: @menu-item-height - @menu-item-divider-margin * 2;
-      margin: @menu-item-divider-margin 0;
-      border-right: @menu-border-width @menu-border-style @menu-border-color;
+    &-icon {
+      margin-right: 8px;
     }
   }
 
-  &-inline {
-    &.@{menu-prefix}-content {
-      border-right: 0;
+  .@{menu-prefix}-item.@{menu-prefix}-item-disabled,
+  .@{menu-prefix}-sub-disabled > .@{menu-prefix}-sub-title {
+    color: @menu-disabled-color;
+    background-color: @menu-disabled-bg-color;
+    cursor: not-allowed;
+
+    &:hover,
+    &:active {
+      background-color: @menu-disabled-bg-color;
+    }
+  }
+
+  .@{menu-prefix}-sub {
+    &-title-suffix {
+      position: absolute;
+      right: @menu-sub-suffix-icon-right;
+    }
+
+    &.@{menu-prefix}-sub-opened {
+      .@{menu-prefix}-sub-title {
+        color: @menu-highlight-color;
+      }
     }
   }
 }

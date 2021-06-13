@@ -13,10 +13,9 @@ import { IxDivider } from './divider'
 import { IxSpace } from './space'
 import { IxRow, IxCol } from './grid'
 // import Navigation
+import { IxMenu, IxMenuItem, IxMenuDivider, IxMenuGroup, IxSubMenu } from './menu'
 import { IxPagination } from './pagination'
 import { IxAffix } from './affix'
-import { IxDropdown, IxDropdownButton } from './dropdown'
-import { IxMenu, IxMenuItem, IxMenuItemGroup, IxMenuDivider, IxSubMenu } from './menu'
 // import Data Entry
 import { IxForm, IxFormItem, IxFormWrapper } from './form'
 import { IxCheckbox, IxCheckboxGroup } from './checkbox'
@@ -26,6 +25,8 @@ import { IxRate } from './rate'
 import { IxSelect, IxOption, IxOptionGroup } from './select'
 import { IxSwitch } from './switch'
 // import Data Display
+import { IxPopover } from './popover'
+import { IxTooltip } from './tooltip'
 import { IxCollapse, IxCollapsePanel } from './collapse'
 import { IxSteps, IxStep } from './steps'
 import { IxList, IxListItem } from './list'
@@ -35,8 +36,6 @@ import { IxEmpty } from './empty'
 import { IxImage } from './image'
 import { IxStatistic } from './statistic'
 import { IxTimeline, IxTimelineItem } from './timeline'
-import { IxTooltip } from './tooltip'
-import { IxPopover } from './popover'
 // import Feedback
 import { IxResult } from './result'
 import { IxSpin } from './spin'
@@ -59,15 +58,13 @@ const components = [
   IxRow,
   IxCol,
   // components Navigation
-  IxPagination,
-  IxAffix,
-  IxDropdown,
-  IxDropdownButton,
   IxMenu,
   IxMenuItem,
-  IxMenuItemGroup,
   IxMenuDivider,
+  IxMenuGroup,
   IxSubMenu,
+  IxPagination,
+  IxAffix,
   // components Data Entry
   IxForm,
   IxFormItem,
@@ -85,6 +82,8 @@ const components = [
   IxOptionGroup,
   IxSwitch,
   // components Data Display
+  IxPopover,
+  IxTooltip,
   IxCollapse,
   IxCollapsePanel,
   IxSteps,
@@ -98,8 +97,6 @@ const components = [
   IxStatistic,
   IxTimeline,
   IxTimelineItem,
-  IxTooltip,
-  IxPopover,
   // components Feedback
   IxResult,
   IxSpin,

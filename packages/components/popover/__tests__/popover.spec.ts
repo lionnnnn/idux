@@ -1,38 +1,41 @@
-import { mount, MountingOptions } from '@vue/test-utils'
-import { defineComponent, nextTick } from 'vue'
+import type { MountingOptions } from '@vue/test-utils'
+import type { PopoverProps } from '../src/types'
+
+import { mount, VueWrapper } from '@vue/test-utils'
 import { renderWork, wait } from '@tests'
 import IxPopover from '../src/Popover.vue'
-import { PopoverProps } from '../src/types'
-
-const TestComponent = defineComponent({
-  components: { IxPopover },
-  // eslint-disable-next-line vue/require-prop-types
-  props: ['title', 'content', 'placement', 'visible', 'trigger', 'destroyOnHide'],
-  template: `
-  <ix-popover :title="title" :content="content" :placement="placement" :visible="visible" :trigger="trigger" :destroy-on-hide="destroyOnHide">
-    <template v-if='!!$slots.title' #title><slot name='title'/></template>
-    <template v-if="!!$slots.content" #content><slot name="content"/></template>
-    <span>Popover will show when it's clicked.</span>
-  </ix-popover>
-  `,
-})
 
 describe('Popover.vue', () => {
-  const PopoverMount = (options?: MountingOptions<PopoverProps>) => mount(TestComponent, { ...options })
-  afterEach(() => {
-    document.body.querySelectorAll('.ix-popover').forEach(value => {
-      value.remove()
-    })
+  let PopoverMount: (options?: MountingOptions<Partial<PopoverProps>>) => VueWrapper<InstanceType<typeof IxPopover>>
+
+  beforeEach(() => {
+    PopoverMount = options => mount(IxPopover as any, { ...options }) as any
   })
 
-  renderWork(IxPopover, { props: { content: 'Content' } })
+  renderWork(IxPopover)
 
-  test('visible work', async () => {
-    const wrapper = PopoverMount({ props: { title: 'Title', content: 'Content' } })
-    await nextTick()
-    expect((document.body.querySelector('.ix-popover') as HTMLDivElement).style.display).toEqual('none')
-    await wrapper.get('span').trigger('click')
+  test('placement', async () => {
+    jest.spyOn(console, 'warn').mockImplementation(() => {})
+    const popoverWrapper = PopoverMount({
+      slots: {
+        default: '<span id="trigger">Trigger</span>',
+      },
+      props: {
+        title: 'Title',
+        content: 'Content',
+      },
+    })
+    await popoverWrapper.get('#trigger').trigger('mouseenter')
     await wait(100)
-    expect((document.body.querySelector('.ix-popover') as HTMLDivElement).style.display).toEqual('')
+    expect(document.querySelector('.ix-popover')!.getAttribute('class')).toContain('ix-overlay-top')
+
+    await popoverWrapper.setProps({ placement: 'bottom' })
+    expect(document.querySelector('.ix-popover')!.getAttribute('class')).toContain('ix-overlay-bottom')
+
+    await popoverWrapper.setProps({ placement: 'left' })
+    expect(document.querySelector('.ix-popover')!.getAttribute('class')).toContain('ix-overlay-left')
+
+    await popoverWrapper.setProps({ placement: 'right' })
+    expect(document.querySelector('.ix-popover')!.getAttribute('class')).toContain('ix-overlay-right')
   })
 })

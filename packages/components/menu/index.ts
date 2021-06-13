@@ -1,40 +1,24 @@
-import type { App } from 'vue'
+import type { App, DefineComponent } from 'vue'
 
-import IxMenu from './src/menu/Menu.vue'
-import IxMenuItem from './src/menu/MenuItem.vue'
-import IxMenuItemGroup from './src/menu/MenuItemGroup.vue'
-import IxMenuDivider from './src/menu/MenuDivider.vue'
-import IxSubMenu from './src/sub-menu/SubMenu.vue'
+import { IxMenu, IxMenuItem, IxMenuDivider, IxMenuGroup, IxSubMenu } from './src'
 
-IxMenu.install = (app: App): void => {
-  app.component(IxMenu.name, IxMenu)
-}
+const components = [IxMenu, IxMenuItem, IxMenuDivider, IxMenuGroup, IxSubMenu]
 
-IxMenuItem.install = (app: App): void => {
-  app.component(IxMenuItem.name, IxMenuItem)
-}
+components.forEach(component => {
+  component.install = (app: App & DefineComponent): void => {
+    app.component(app.name, app)
+  }
+})
 
-IxMenuItemGroup.install = (app: App): void => {
-  app.component(IxMenuItemGroup.name, IxMenuItemGroup)
-}
-
-IxMenuDivider.install = (app: App): void => {
-  app.component(IxMenuDivider.name, IxMenuDivider)
-}
-
-IxSubMenu.install = (app: App): void => {
-  app.component(IxSubMenu.name, IxSubMenu)
-}
-
-export { IxMenu, IxMenuItem, IxMenuItemGroup, IxMenuDivider, IxSubMenu }
+export { IxMenu, IxMenuItem, IxMenuDivider, IxMenuGroup, IxSubMenu }
 
 export type {
   MenuInstance,
   MenuProps,
   MenuItemInstance,
   MenuItemProps,
-  MenuItemGroupInstance,
-  MenuItemGroupProps,
+  MenuGroupInstance,
+  MenuGroupProps,
   SubMenuInstance,
   SubMenuProps,
-} from './src/types'
+} from './src'

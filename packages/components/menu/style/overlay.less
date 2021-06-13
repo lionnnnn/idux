@@ -1,0 +1,41 @@
+.@{menu-prefix}-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  pointer-events: none;
+
+  .@{menu-prefix} {
+    pointer-events: all;
+    display: inline-flex;
+    position: absolute;
+    background-color: transparent;
+
+    .@{menu-prefix}-overlay {
+      //z-index: @menu-overlay-zindex;
+      min-width: @menu-overlay-min-width;
+      background-color: @menu-bg-color;
+      border-radius: @menu-overlay-border-radius;
+      box-shadow: @menu-overlay-box-shadow;
+      transition: background-color @transition-duration-slow, width @transition-duration-slow;
+
+      a {
+        color: @menu-text-color;
+        text-decoration: none;
+      }
+
+      .@{menu-prefix}-item::after {
+        border-right: 0;
+      }
+    }
+
+    .@{menu-prefix}-item.@{menu-prefix}-item-selected,
+    .@{menu-prefix}-sub-selected > .@{menu-prefix}-sub-title {
+      color: @menu-highlight-color;
+      a {
+        color: @menu-highlight-color;
+      }
+    }
+  }
+}

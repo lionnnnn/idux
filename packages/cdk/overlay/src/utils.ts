@@ -1,64 +1,101 @@
-import type { ComputedRef, Ref } from 'vue'
-import type { Options, StrictModifiers } from '@popperjs/core'
-import type { OverlayElement, OverlayPlacement } from './types'
+import type { Ref } from 'vue'
+import type { EventOptions, OverlayElement, OverlayOptions, OverlayPlacement, OverlayTriggerEvents } from './types'
 
-import { computed } from 'vue'
+import domAlign from 'dom-align'
 import { isHTMLElement } from '@idux/cdk/utils'
 
-export const convertElement = (elementRef: Ref<OverlayElement | null>): ComputedRef<HTMLElement> => {
-  return computed(() => {
-    const element = elementRef.value
-    if (element === null) {
-      return null
+export function mapTriggerEvents(
+  events: Array<keyof OverlayTriggerEvents>,
+  { state, timer, show, hide, visibility }: EventOptions,
+): OverlayTriggerEvents {
+  let triggerFocus = false
+  function triggerEventsHandler(event: Event): void {
+    event.stopPropagation()
+    switch (event.type) {
+      case 'mouseenter':
+        if (timer.value) {
+          clearTimeout(timer.value)
+          timer.value = null
+        }
+        show()
+        break
+      case 'mouseleave':
+        hide()
+        break
+      case 'focus':
+        triggerFocus = true
+        show()
+        break
+      case 'blur':
+        triggerFocus = false
+        hide()
+        break
+      case 'click':
+        if (triggerFocus) {
+          triggerFocus = false
+        } else {
+          visibility.value && state.trigger === 'click' ? hide() : show()
+        }
+        break
+      case 'contextmenu':
+        event.preventDefault()
+        show()
+        break
     }
-    return isHTMLElement(element) ? element : element.$el
-  })
-}
-
-interface ModifierProps {
-  offset: [number, number]
-  arrow: HTMLElement | null
-  arrowOffset?: number
-  showArrow?: boolean
-}
-
-function convertModifiers(
-  { offset, arrow, arrowOffset, showArrow }: ModifierProps,
-  externalModifiers: StrictModifiers[] = [],
-) {
-  const modifiers: StrictModifiers[] = [
-    { name: 'offset', options: { offset } },
-    { name: 'preventOverflow', options: { padding: { top: 2, bottom: 2, left: 5, right: 5 } } },
-    { name: 'flip', options: { padding: 5 } },
-  ]
-  if (showArrow) {
-    modifiers.push({
-      name: 'arrow',
-      options: {
-        element: arrow,
-        padding: arrowOffset ?? 5,
-      },
-    })
   }
 
-  modifiers.push(...externalModifiers)
-
-  return modifiers
-}
-interface PopperOptions {
-  placement: OverlayPlacement
-  popperOptions?: Partial<Options>
-  offset: [number, number]
-  arrow: HTMLElement | null
-  arrowOffset?: number
-  showArrow?: boolean
+  return events.reduce((obj, event) => {
+    obj[event] = triggerEventsHandler
+    return obj
+  }, {} as OverlayTriggerEvents)
 }
 
-export const convertPopperOptions = (options: PopperOptions): Partial<Options> => {
-  const { placement, popperOptions, offset, arrow, arrowOffset, showArrow } = options
-  return {
-    placement,
-    ...popperOptions,
-    modifiers: convertModifiers({ offset, arrow, arrowOffset, showArrow }, popperOptions?.modifiers),
+export function toggle(visible: boolean, delay: number, { state, timer }: EventOptions): void {
+  const action = () => {
+    state.visible = visible
   }
+  if (!delay) {
+    action()
+  } else {
+    timer.value = setTimeout(action, delay)
+  }
+}
+
+export function convertElement(elementRef: Ref<OverlayElement | null>): HTMLElement | null {
+  const element = elementRef.value
+  if (!element) {
+    return null
+  }
+  return isHTMLElement(element) ? element : element.$el
+}
+
+export function initOverlay(source: HTMLElement, target: HTMLElement, { state }: EventOptions): void {
+  function getDomAlignOptions({ placement, offset, autoAdjust }: Required<OverlayOptions>): DomAlignConfig {
+    function getPoints() {
+      const placementMap: Record<OverlayPlacement, DomAlignConfig['points']> = {
+        topStart: ['bl', 'tl'],
+        top: ['bc', 'tc'],
+        topEnd: ['br', 'tr'],
+        bottomStart: ['tl', 'bl'],
+        bottom: ['tc', 'bc'],
+        bottomEnd: ['tr', 'br'],
+        leftStart: ['tr', 'tl'],
+        left: ['cr', 'cl'],
+        leftEnd: ['br', 'bl'],
+        rightStart: ['tl', 'tr'],
+        right: ['cl', 'cr'],
+        rightEnd: ['bl', 'br'],
+      }
+
+      return placementMap[placement]
+    }
+
+    return {
+      points: getPoints(),
+      offset,
+      overflow: { adjustX: autoAdjust, adjustY: autoAdjust },
+      useCssTransform: true,
+    }
+  }
+  domAlign(source, target, getDomAlignOptions(state))
 }

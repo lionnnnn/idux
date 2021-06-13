@@ -1,2 +1,11 @@
 export * from './src/useOverlay'
-export * from './src/types'
+export type {
+  OverlayScrollStrategy,
+  OverlayTrigger,
+  OverlayElement,
+  OverlayPlacement,
+  OverlayTriggerEvents,
+  OverlayPopperEvents,
+  OverlayOptions,
+  OverlayInstance,
+} from './src/types'

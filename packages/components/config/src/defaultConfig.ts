@@ -20,17 +20,17 @@ import type {
   BackTopConfig,
   AnchorConfig,
   GlobalConfig,
-  TooltipConfig,
-  PopoverConfig,
   SelectConfig,
   RadioGroupConfig,
   MenuConfig,
   SubMenuConfig,
   StepsConfig,
-  DropdownConfig,
   ListConfig,
   FormConfig,
   PaginationConfig,
+  TooltipConfig,
+  PopoverConfig,
+  DropdownConfig,
 } from './types'
 
 import { shallowReactive } from 'vue'
@@ -61,7 +61,7 @@ const row = shallowReactive<RowConfig>({ wrap: true })
 
 // --------------------- Navigation ---------------------
 const dropdown = shallowReactive<DropdownConfig>({
-  placement: 'bottom-start',
+  placement: 'bottomStart',
   trigger: 'hover',
 })
 

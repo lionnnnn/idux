@@ -1,3 +1,3 @@
-export { default as IxPortal } from './src/Portal.tsx'
+export { default as IxPortal } from './src/Portal'
 export * from './src/useContainer'
 export * from './src/types'

@@ -8,11 +8,11 @@
       <label :for="labelFor">
         <slot name="label">{{ label }}</slot>
         <span v-if="labelTooltip || $slots.labelTooltip" class="ix-form-item-label-tooltip">
-          <slot name="tooltip">
-            <ix-tooltip :title="labelTooltip">
-              <ix-icon name="question-circle" />
-            </ix-tooltip>
-          </slot>
+          <!--   todo 移除overlay      <slot name="tooltip">-->
+          <!--            <ix-tooltip :title="labelTooltip">-->
+          <!--              <ix-icon name="question-circle" />-->
+          <!--            </ix-tooltip>-->
+          <!--          </slot>-->
         </span>
       </label>
     </ix-col>
@@ -40,14 +40,13 @@
 import { computed, defineComponent, inject } from 'vue'
 import { IxIcon } from '@idux/components/icon'
 import { IxCol, IxRow } from '@idux/components/grid'
-import { IxTooltip } from '@idux/components/tooltip'
 import { formItemProps } from './types'
 import { useFormItemClasses, useFormItemColConfig, useFormItemControl, useFormItemLabelClasses } from './useFormItem'
 import { formToken } from './token'
 
 export default defineComponent({
   name: 'IxFormItem',
-  components: { IxCol, IxRow, IxTooltip, IxIcon },
+  components: { IxCol, IxRow, IxIcon },
   props: formItemProps,
   setup(props) {
     const formContext = inject(formToken)

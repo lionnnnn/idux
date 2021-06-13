@@ -11,10 +11,9 @@ import { IxDivider } from '@idux/components/divider'
 import { IxSpace } from '@idux/components/space'
 import { IxRow, IxCol } from '@idux/components/grid'
 // import Navigation
+import { IxMenu, IxMenuItem, IxMenuDivider, IxMenuGroup, IxSubMenu } from '@idux/components/menu'
 import { IxPagination } from '@idux/components/pagination'
 import { IxAffix } from '@idux/components/affix'
-import { IxDropdown, IxDropdownButton } from '@idux/components/dropdown'
-import { IxMenu, IxMenuItem, IxMenuItemGroup, IxMenuDivider, IxSubMenu } from '@idux/components/menu'
 // import Data Entry
 import { IxForm, IxFormItem, IxFormWrapper } from '@idux/components/form'
 import { IxCheckbox, IxCheckboxGroup } from '@idux/components/checkbox'
@@ -24,6 +23,8 @@ import { IxRate } from '@idux/components/rate'
 import { IxSelect, IxOption, IxOptionGroup } from '@idux/components/select'
 import { IxSwitch } from '@idux/components/switch'
 // import Data Display
+import { IxPopover } from '@idux/components/popover'
+import { IxTooltip } from '@idux/components/tooltip'
 import { IxCollapse, IxCollapsePanel } from '@idux/components/collapse'
 import { IxSteps, IxStep } from '@idux/components/steps'
 import { IxBadge } from '@idux/components/badge'
@@ -33,8 +34,6 @@ import { IxEmpty } from '@idux/components/empty'
 import { IxImage } from '@idux/components/image'
 import { IxStatistic } from '@idux/components/statistic'
 import { IxTimeline, IxTimelineItem } from '@idux/components/timeline'
-import { IxTooltip } from '@idux/components/tooltip'
-import { IxPopover } from '@idux/components/popover'
 // import Feedback
 import { IxResult } from '@idux/components/result'
 import { IxSpin } from '@idux/components/spin'
@@ -58,15 +57,13 @@ const components = [
   IxRow,
   IxCol,
   // components Navigation
-  IxPagination,
-  IxAffix,
-  IxDropdown,
-  IxDropdownButton,
   IxMenu,
   IxMenuItem,
-  IxMenuItemGroup,
   IxMenuDivider,
+  IxMenuGroup,
   IxSubMenu,
+  IxPagination,
+  IxAffix,
   // components Data Entry
   IxForm,
   IxFormItem,
@@ -84,6 +81,8 @@ const components = [
   IxOptionGroup,
   IxSwitch,
   // components Data Display
+  IxPopover,
+  IxTooltip,
   IxCollapse,
   IxCollapsePanel,
   IxSteps,
@@ -97,8 +96,6 @@ const components = [
   IxStatistic,
   IxTimeline,
   IxTimelineItem,
-  IxTooltip,
-  IxPopover,
   // components Feedback
   IxResult,
   IxSpin,

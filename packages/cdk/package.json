@@ -30,13 +30,13 @@
     "url": "https://github.com/IduxFE/idux/issues"
   },
   "peerDependencies": {
-    "vue": "^3.0.0",
     "@vue/compiler-sfc": "^3.0.0",
-    "@vue/shared": "^3.0.0"
+    "@vue/shared": "^3.0.0",
+    "vue": "^3.0.0"
   },
   "dependencies": {
     "@juggle/resize-observer": "^3.3.0",
-    "@popperjs/core": "^2.9.0",
+    "dom-align": "^1.12.2",
     "lodash": "^4.17.0",
     "vue-types": "^3.0.0"
   }

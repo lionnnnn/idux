@@ -275,9 +275,9 @@ export interface GlobalConfig {
   collapse: CollapseConfig
   image: ImageConfig
   statistic: StatisticConfig
+  steps: StepsConfig
   tooltip: TooltipConfig
   popover: PopoverConfig
-  steps: StepsConfig
   // Feedback
   message: MessageConfig
   result: ResultConfig

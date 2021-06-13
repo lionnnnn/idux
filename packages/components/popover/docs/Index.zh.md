@@ -1,6 +1,6 @@
 ---
 category: components
-type: 反馈
+type: 数据展示
 title: Popover
 subtitle: 气泡卡片
 order: 0
@@ -31,6 +31,7 @@ order: 0
 | `hideDelay` | 浮层隐藏延时 | `number` | 100 | ✅ | - |
 | `destroyOnHide` | 隐藏时是否销毁浮层 | `boolean` | `false` | ✅ | - |
 | `autoAdjust` | 浮层被遮挡时自动调整位置 | `boolean` | `false` | ✅ | - |
+| `onUpdate:visible` | 浮层显隐变化回调 | `(visible: boolean) => void` | `() => {}` | - | - |
 
 #### Slots
 

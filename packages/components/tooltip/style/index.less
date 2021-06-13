@@ -3,58 +3,32 @@
 @tooltip-prefix: ~'@{idux-prefix}-tooltip';
 
 .@{tooltip-prefix} {
+  position: absolute;
+  pointer-events: all;
+
+  &-container {
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    pointer-events: none;
+  }
+
   &-content {
-    max-width: @tooltip-content-max-width;
-    font-size: @tooltip-content-font-size;
-    color: @tooltip-content-color;
-    min-width: @tooltip-content-min-width;
-    min-height: @tooltip-content-min-height;
-    padding: @tooltip-content-padding;
-    background-color: @tooltip-content-background;
-    border-radius: @tooltip-content-border-radius;
-    box-shadow: @tooltip-content-box-shadow;
+    max-width: @tooltip-max-width;
+    font-size: @tooltip-font-size;
+    color: @tooltip-color;
+    min-width: @tooltip-min-width;
+    min-height: @tooltip-min-height;
+    padding: @tooltip-padding;
+    background-color: @tooltip-background;
+    border-radius: @tooltip-border-radius;
+    box-shadow: @tooltip-box-shadow;
   }
 
   &-arrow {
-    &-inner {
-      width: 0;
-      height: 0;
-      border-width: @tooltip-arrow-size;
-      display: inline-block;
-      border-style: solid;
-      border-color: transparent @tooltip-content-background @tooltip-content-background transparent;
-    }
-  }
-
-  &[data-popper-placement^='top'] .@{tooltip-prefix}-arrow {
-    bottom: -6px;
-
-    & > .@{tooltip-prefix}-arrow-inner {
-      transform: rotate(45deg);
-    }
-  }
-
-  &[data-popper-placement^='bottom'] .@{tooltip-prefix}-arrow {
-    top: -11px;
-
-    & > .@{tooltip-prefix}-arrow-inner {
-      transform: rotate(-135deg);
-    }
-  }
-
-  &[data-popper-placement^='left'] .@{tooltip-prefix}-arrow {
-    right: -3px;
-
-    & > .@{tooltip-prefix}-arrow-inner {
-      transform: rotate(-45deg);
-    }
-  }
-
-  &[data-popper-placement^='right'] .@{tooltip-prefix}-arrow {
-    left: -3px;
-
-    & > .@{tooltip-prefix}-arrow-inner {
-      transform: rotate(135deg);
-    }
+    border-width: @tooltip-arrow-size;
+    border-color: transparent @tooltip-background @tooltip-background transparent;
   }
 }

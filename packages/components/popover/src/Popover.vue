@@ -1,8 +1,18 @@
 <template>
-  <ix-tooltip v-bind="options" @visibleChange="onVisibleChange">
-    <template #title>
-      <div class="ix-popover-inner">
-        <div v-if="hasTitle" class="ix-popover-title">
+  <ix-overlay
+    v-model:visible="visibility"
+    cls-prefix="ix-popover"
+    allow-enter
+    scroll-strategy="close"
+    v-bind="config"
+    :offset="offset"
+  >
+    <template #trigger>
+      <slot />
+    </template>
+    <template #overlay>
+      <div>
+        <div class="ix-popover-title">
           <slot name="title">{{ title }}</slot>
         </div>
         <div class="ix-popover-inner-content">
@@ -10,46 +20,25 @@
         </div>
       </div>
     </template>
-    <slot />
-  </ix-tooltip>
+  </ix-overlay>
 </template>
 
 <script lang="ts">
-import { computed, defineComponent } from 'vue'
-import { hasSlot } from '@idux/cdk/utils'
-import { IxTooltip } from '@idux/components/tooltip'
-import { useGlobalConfig } from '@idux/components/config'
+import { defineComponent } from 'vue'
+import { IxOverlay } from '@idux/components/private/overlay'
 import { popoverProps } from './types'
+import { useConfig, useOffset, useVisibility } from './hooks'
 
 export default defineComponent({
   name: 'IxPopover',
-  components: { IxTooltip },
+  components: { IxOverlay },
   props: popoverProps,
-  emits: ['update:visible'],
-  setup(props, { emit, slots }) {
-    const options = computed(() => {
-      const config = useGlobalConfig('popover')
-      return {
-        visible: props.visible,
-        placement: props.placement ?? config.placement,
-        trigger: props.trigger ?? config.trigger,
-        showDelay: props.showDelay ?? config.showDelay,
-        hideDelay: props.hideDelay ?? config.hideDelay,
-        destroyOnHide: props.destroyOnHide ?? config.destroyOnHide,
-        autoAdjust: props.autoAdjust ?? config.autoAdjust,
-        clsPrefix: 'ix-popover',
-      }
-    })
+  setup() {
+    const config = useConfig()
+    const visibility = useVisibility()
+    const offset = useOffset(config)
 
-    const hasTitle = computed(() => {
-      return !!(hasSlot(slots, 'title') || props.title)
-    })
-
-    const onVisibleChange = (visible: boolean) => {
-      emit('update:visible', visible)
-    }
-
-    return { options, onVisibleChange, hasTitle }
+    return { config, visibility, offset }
   },
 })
 </script>
