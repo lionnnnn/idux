@@ -66,6 +66,7 @@ export interface GlobalConfig {
   imageViewer: ImageViewerConfig
   menu: MenuConfig
   message: MessageConfig
+  mentions: MentionsConfig
   modal: ModalConfig
   notification: NotificationConfig
   pagination: PaginationConfig
@@ -281,6 +282,11 @@ export interface MessageConfig {
   maxCount: number
   target?: PortalTargetType
   top?: number | string
+}
+
+export interface MentionsConfig {
+  prefix: string
+  split: string
 }
 
 export interface ModalConfig {

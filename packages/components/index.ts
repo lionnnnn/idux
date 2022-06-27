@@ -37,6 +37,7 @@ import { IxLayout, IxLayoutContent, IxLayoutFooter, IxLayoutHeader, IxLayoutSide
 import { IxList, IxListItem } from '@idux/components/list'
 import { IxMenu, IxMenuDivider, IxMenuItem, IxMenuItemGroup, IxMenuSub } from '@idux/components/menu'
 import { IxMessage, IxMessageProvider } from '@idux/components/message'
+import { IxMentions, IxMentionsOption } from '@idux/components/mentions'
 import { IxModal, IxModalProvider } from '@idux/components/modal'
 import { IxNotification, IxNotificationProvider } from '@idux/components/notification'
 import { IxPagination } from '@idux/components/pagination'
@@ -122,6 +123,8 @@ const components = [
   IxMenuSub,
   IxMessage,
   IxMessageProvider,
+  IxMentions,
+  IxMentionsOption,
   IxModal,
   IxModalProvider,
   IxNotification,
@@ -217,6 +220,7 @@ export * from '@idux/components/list'
 export * from '@idux/components/locales'
 export * from '@idux/components/menu'
 export * from '@idux/components/message'
+export * from '@idux/components/mentions'
 export * from '@idux/components/modal'
 export * from '@idux/components/notification'
 export * from '@idux/components/pagination'

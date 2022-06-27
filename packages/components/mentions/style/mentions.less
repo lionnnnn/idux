@@ -1,0 +1,11 @@
+@mentions-prefix: ~'@{idux-prefix}-mentions';
+@menu-prefix: ~'@{idux-prefix}-menu';
+
+// ix-select
+.@{mentions-prefix} {
+  &-menu {
+    .@{menu-prefix}-item.@{menu-prefix}-item-selected {
+      background-color: @menu-highlight-bg-color;
+    }
+  }
+}

@@ -163,6 +163,10 @@ export const defaultConfig: GlobalConfig = {
       loading: 'loading',
     },
   },
+  mentions: {
+    prefix: '@',
+    split: ' ',
+  },
   modal: {
     centered: false,
     closable: true,
